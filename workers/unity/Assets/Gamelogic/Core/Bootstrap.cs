@@ -22,6 +22,12 @@ namespace Assets.Gamelogic.Core
         {
             SpatialOS.ApplyConfiguration(Configuration);
 
+#if UNITY_EDITOR
+            Debug.LogError("Running " + SpatialOS.Configuration.WorkerPlatform + " within unity editor (open scene count: " + UnityEditor.SceneManagement.EditorSceneManager.loadedSceneCount + ")");
+#else
+            Debug.LogError("Running " + SpatialOS.Configuration.WorkerPlatform + " standalone");
+#endif
+
             Time.fixedDeltaTime = 1.0f / SimulationSettings.FixedFramerate;
 
             // Distinguishes between when the Unity is running as a client or a server.
